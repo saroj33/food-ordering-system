@@ -38,6 +38,6 @@ jobs:
           java-version: 17
 
       - name: Build project with Maven
-        run: mvn  package  -DskipTests  dockerfile:build dockerfile:push docker:remove -Ddocker -Ddocker.removeMode=all "-Dimmersion=v1.1"
+        run: mvn  package  -DskipTests  dockerfile:build dockerfile:push dockerfile:remove -Ddocker -Ddocker.removeMode=all "-Dimmersion=v1.1"
 
 
