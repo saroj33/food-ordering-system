@@ -45,6 +45,6 @@ jobs:
             restore-keys: ${{ runner.os }}-m2
 
       - name: Build project with Maven
-        run: mvn clean install
+        run: mvn  package -Pprod -DskipTests  docker:build docker:push docker:remove -Ddocker -Ddocker.removeMode=all "-Dimmersion=v1.1"
 
 
