@@ -56,6 +56,6 @@ jobs:
         run: mvn clean install
 
       - name: Docker Push
-        run: docker push saroj33/com.food.ordering.system/order.service:1.0-SNAPSHOT
+        run: docker push saroj33/food-ordering-system:1.0-SNAPSHOT
 
 
