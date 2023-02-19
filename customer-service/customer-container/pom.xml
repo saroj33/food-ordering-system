@@ -45,7 +45,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>${project.groupId}/customer.service:${project.version}</name>
+                        <name>saroj33/food-ordering-system:customer-service</name>
                     </image>
                 </configuration>
                 <executions>

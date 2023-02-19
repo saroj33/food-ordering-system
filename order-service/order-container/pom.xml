@@ -57,7 +57,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>saroj33/food-ordering-system:${project.version}</name>
+                        <name>saroj33/food-ordering-system:order-service</name>
                     </image>
                 </configuration>
                 <executions>

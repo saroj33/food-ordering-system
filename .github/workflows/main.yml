@@ -31,6 +31,9 @@ jobs:
           - 5432:5432
 
     steps:
+      - id: commit
+        uses: pr-mpt/actions-commit-hash@v2
+
       - uses: actions/checkout@v2
       - name: Set up JDK 17
         uses: actions/setup-java@v1
@@ -56,6 +59,14 @@ jobs:
         run: mvn clean install
 
       - name: Docker Push
-        run: docker push saroj33/food-ordering-system:1.0-SNAPSHOT
+        run: |
+            docker tag saroj33/food-ordering-system:customer-service saroj33/food-ordering-system:customer-service-${{ steps.commit.outputs.short }}
+            docker push saroj33/food-ordering-system:customer-service
+            docker tag saroj33/food-ordering-system:restaurant-service saroj33/food-ordering-system:restaurant-service-${{ steps.commit.outputs.short }}
+            docker push saroj33/food-ordering-system:restaurant-service
+            docker tag saroj33/food-ordering-system:payment-service saroj33/food-ordering-system:payment-service-${{ steps.commit.outputs.short }}
+            docker push saroj33/food-ordering-system:payment-service
+            docker tag saroj33/food-ordering-system:order-service saroj33/food-ordering-system:order-service-${{ steps.commit.outputs.short }}
+            docker push saroj33/food-ordering-system:order-service
 
 
