@@ -52,23 +52,42 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.33.0</version>
+            <configuration>
+                <images>
                     <image>
-                        <name>${project.groupId}/order.service:${project.version}</name>
+                        <name>saroj33/order-container</name>
+                        <build>
+                            <assembly>
+                                <descriptorRef>artifact</descriptorRef>
+                            </assembly>
+                            <tags>
+                                <tag>latest</tag>
+                            </tags>
+                        </build>
                     </image>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>build-image</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+                </images>
+                <authConfig>
+                    <username>${env.DOCKER_USER}</username>
+                    <password>${env.DOCKER_PASSWORD}</password>
+                </authConfig>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>push</id>
+                    <phase>install</phase>
+                    <goals>
+                        <goal>stop</goal>
+                        <goal>build</goal>
+                        <goal>push</goal>
+                        <goal>remove</goal>
+                    </goals>
+                </execution>
+            </executions>
+          </plugin>
         </plugins>
     </build>
 
