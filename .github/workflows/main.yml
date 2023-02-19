@@ -37,7 +37,25 @@ jobs:
         with:
           java-version: 17
 
+      - name: Cache the Maven packages to speed up build
+        uses: actions/cache@v1
+        with:
+            path: ~/.m2
+            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+            restore-keys: ${{ runner.os }}-m2
+
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
       - name: Build project with Maven
-        run: mvn  package  -DskipTests  dockerfile:build dockerfile:push dockerfile:remove -Ddocker -Ddocker.removeMode=all "-Dimmersion=v1.1"
+        run: mvn clean install
+
+      - name: Docker Push
+        run: docker push saroj33/food-ordering-system
 
 
