@@ -37,13 +37,6 @@ jobs:
         with:
           java-version: 17
 
-      - name: Cache the Maven packages to speed up build
-        uses: actions/cache@v1
-        with:
-            path: ~/.m2
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: ${{ runner.os }}-m2
-
       - name: Build project with Maven
         run: mvn  package  -DskipTests  docker:build docker:push docker:remove -Ddocker -Ddocker.removeMode=all "-Dimmersion=v1.1"
 
